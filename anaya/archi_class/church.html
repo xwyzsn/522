@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>阿那亚礼堂</title>
+    <style>
+        body {
+            background-color: rgba(230, 230, 230, 0.4);
+        }
+
+        /* 导航栏 */
+        .nav {
+            height: 120px;
+            width: 100%;
+
+        }
+
+        .logo {
+            float: left;
+            margin-left: 50px;
+            margin-top: 40px;
+        }
+
+        .list {
+            float: left;
+            height: 120px;
+            line-height: 120px;
+            margin-left: 450px;
+
+        }
+
+        ul {
+            list-style-type: none;
+
+        }
+
+        li {
+            font-family: 方正中等线简体;
+            font-size: 20px;
+            display: inline;
+            padding-left: 20px;
+        }
+
+        .login {
+            float: right;
+            margin-right: 50px;
+            ;
+            height: 120px;
+            line-height: 120px;
+        }
+
+        span {
+            font-family: 方正中等线简体;
+            vertical-align: middle;
+            font-size: 16px;
+            font-weight: normal;
+            padding: 10px;
+        }
+
+        /* 图片 */
+        .bg {
+            position: absolute;
+            border-radius: 50px;
+            left: 50%;
+            margin-left: -600px;
+            top: 680px;
+            width: 1200px;
+            height: 150px;
+            background-color: rgb(255, 255, 255);
+            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.416);
+        }
+
+        .intro {
+            margin-top: 160px;
+            text-align: center;
+        }
+
+        h3 {
+
+            font-family: Verdana;
+            font-size: 20px;
+            font-weight: 300;
+            color: #8e8e8e;
+        }
+
+        .intro_detail {
+            margin: auto;
+            margin-top: 40px;
+            width: 1200px;
+            height: 440px;
+            background-color: rgb(255, 255, 255);
+
+        }
+
+        .intropic {
+            float: left;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+
+        .introtext {
+            float: left;
+        }
+
+        .comment {
+            margin-top: 40px;
+        }
+
+        .com {
+            margin: auto;
+            width: 1200px;
+            height: 400px;
+            background-color: #fff;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/quasar@2.12.0/dist/quasar.prod.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet"
+        type="text/css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
+
+
+
+    <!-- <style>
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .place-content-center {
+            place-content: center;
+        }
+
+        .place-items-center {
+            place-items: center;
+        }
+
+        .content-center {
+            align-content: center;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .flex-1 {
+            flex: 1;
+        }
+
+        html,
+        body,
+        #app {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style> -->
+
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quasar@2.12.0/dist/quasar.umd.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quasar@2.12.0/dist/lang/zh-CN.umd.prod.js"></script>
+    <div id="app" style="height: 100%;width: 100;">
+        <div class="w-full m-0 p-0" v-if="data" style=" background-color: rgb(255, 255, 255);">
+            <!-- 头部 -->
+            <div class="nav w-full m-0 p-0">
+                <!-- 阿那亚logo -->
+                <div class="logo">
+                    <img src="../../img/arnaya_logo.png" width="200">
+                </div>
+                <!-- 导航栏 -->
+                <div class="list">
+                    <ul>
+                        <li class=" cursor-pointer">首页</li>
+                        <li class=" cursor-pointer">艺术</li>
+                        <li class=" cursor-pointer">住宿</li>
+                        <li class=" cursor-pointer">餐厅</li>
+                        <li class=" cursor-pointer">活动</li>
+                        <li class=" cursor-pointer">打卡攻略</li>
+                    </ul>
+                </div>
+                <div class="login" v-if="!isLogin">
+                    <a href="./login" target="_blank"><span @click="gotoLogin"> 登录</span></a>
+                    <span>|</span>
+                    <span @click="gotoLogin">注册</span>
+                </div>
+                <div class="login">
+                    <span style="cursor: pointer;" @click="gotoBackend">
+                        个人中心
+                    </span>
+                    <span>|</span>
+                    <span @click="logout" style="cursor: pointer;" @click="gotoBackend">
+                        退出登录
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- 图片 -->
+        <div class="w-full"><img v-if="data" class="w-full" style="height: 650px;" :src="data.room_inner_pic"></div>
+        <div class="res">
+            <div class="bg flex justify-center place-content-center place-items-center content-center items-center">
+                <div>
+                    <button type="button" @click="preserve"
+                        class="text-white inline-flex items-center bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                        立刻预定
+
+                    </button>
+                </div>
+                <div>
+                    <button @click="addBookmark" type="button"
+                        class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                        添加收藏
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <div v-if="data" class="intro">
+            <h3>—— 简介 ——</h3>
+            <div class="intro_detail flex rounded-lg">
+                <div class="flex-1 h-full">
+                    <img style="padding: 5px;height: 440px;" :src="data.room_cover_pic" class="object-cover ">
+                </div>
+                <div class=" flex-1 space-y-5">
+                    <h1 class="mt-5 text-2xl">
+                        {{data.room_name}}
+                    </h1>
+                    <p>
+                        {{data.room_desc}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="w-full bg-white ">
+            <div class="comment bg-white w-2/3 m-auto  mt-12">
+                <h3 class="w-full text-center pt-12">—— 评价 ——</h3>
+                <div class="w-full h-full">
+                    <label for="search"
+                        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <input type="search" id="search"
+                            class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Search" v-model="searchText">
+                        <button @click="search"
+                            class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                    </div>
+                </div>
+                <div class="mt-4 rounded-lg p-4 " v-for="item in comments" :key="item.cid + 2342">
+                    <div class="bg-slate-50 shadow-md rounded p-4">
+                        <div class="flex items-center mb-4">
+                            <div class="flex-shrink-0 mr-3">
+                                <!-- 用户名图标或头像 -->
+
+                                <div
+                                    class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                                    <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor"
+                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd">
+                                        </path>
+                                    </svg>
+                                </div>
+
+                            </div>
+                            <div>
+                                <h4 class=" font-bold">{{item.username}}</h4>
+                                <p class="text-gray-500 text-sm">
+                                    {{item.comment_time}}
+                                </p>
+                            </div>
+                        </div>
+                        <p class="text-gray-800">
+                            {{item.comment}}
+                        </p>
+                        <p>
+                            <!--email icon-->
+
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-4 rounded-lg p-4 " v-if="comments.length ===0">
+                    <div class="bg-slate-50 shadow-md rounded p-4">
+                        <div class="flex items-center mb-4">
+                            <div class="flex-shrink-0 mr-3">
+                                <!-- 用户名图标或头像 -->
+                                <div
+                                    class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                                    <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor"
+                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd">
+                                        </path>
+                                    </svg>
+                                </div>
+
+                            </div>
+                            <div>
+                                <h4 class=" font-bold">No body</h4>
+                                <p class="text-gray-500 text-sm">
+                                    {{today}}
+                                    <!-- {{dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss')}} -->
+                                </p>
+                            </div>
+                        </div>
+                        <p class="text-gray-800">
+                            这里空空如也，快来抢沙发吧！
+                        </p>
+                        <p>
+                            <!--email icon-->
+
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- <el-dialog class="w-2/3" v-model="show">
+            <el-form label-width="100px">
+                <el-form-item label="开始时间">
+                    <el-date-picker v-model="start" type="date" placeholder="开始时间" :size="size" />
+                </el-form-item>
+                <el-form-item label="结束时间">
+                    <el-date-picker v-model="end" type="date" placeholder="结束时间" :size="size" />
+                </el-form-item>
+            </el-form>
+
+        </el-dialog> -->
+        <q-dialog v-if="show" v-model="show">
+            <q-card>
+                <q-card-section>
+                    <div class="text-h6">选择时间</div>
+                </q-card-section>
+
+                <q-card-section class="q-pt-none">
+                    <div>
+                        <span>选择开始时间</span>
+                        <div class="q-pa-md" style="max-width: 600px">
+                            <q-input outlined v-model="start">
+                                <template v-slot:prepend>
+                                    <q-icon name="event" class="cursor-pointer">
+                                        <q-popup-proxy style="width: 400px;" transition-show="scale"
+                                            transition-hide="scale">
+                                            <q-date class="w-full" v-model="start" mask="YYYY-MM-DD HH:mm">
+                                                <div class="row items-center justify-end">
+                                                    <q-btn v-close-popup label="确认" color="primary" flat />
+                                                </div>
+                                            </q-date>
+                                        </q-popup-proxy>
+                                    </q-icon>
+                                </template>
+                                <template v-slot:append>
+                                    <q-icon name="access_time" class="cursor-pointer">
+                                        <q-popup-proxy style="width: 400px;" transition-show="scale"
+                                            transition-hide="scale">
+                                            <q-time v-model="start" class="w-full h-2/3" mask="YYYY-MM-DD HH:mm"
+                                                format24h>
+                                                <div class="row items-center justify-end">
+                                                    <q-btn v-close-popup label="确认" color="primary" flat />
+                                                </div>
+                                            </q-time>
+                                        </q-popup-proxy>
+                                    </q-icon>
+                                </template>
+                            </q-input>
+                        </div>
+                    </div>
+                    <div>
+                        <span>选择结束时间</span>
+                        <div class="q-pa-md" style="max-width: 600px">
+                            <q-input outlined v-model="end">
+                                <template v-slot:prepend>
+                                    <q-icon name="event" class="cursor-pointer">
+                                        <q-popup-proxy style="width: 400px;" transition-show="scale"
+                                            transition-hide="scale">
+                                            <q-date class="w-full" v-model="end" mask="YYYY-MM-DD HH:mm">
+                                                <div class="row items-center justify-end">
+                                                    <q-btn v-close-popup label="确认" color="primary" flat />
+                                                </div>
+                                            </q-date>
+                                        </q-popup-proxy>
+                                    </q-icon>
+                                </template>
+                                <template v-slot:append>
+                                    <q-icon name="access_time" class="cursor-pointer">
+                                        <q-popup-proxy style="width: 400px;" transition-show="scale"
+                                            transition-hide="scale">
+                                            <q-time v-model="end" class="w-full" mask="YYYY-MM-DD HH:mm" format24h>
+                                                <div class="row items-center justify-end">
+                                                    <q-btn v-close-popup label="确认" color="primary" flat />
+                                                </div>
+                                            </q-time>
+                                        </q-popup-proxy>
+                                    </q-icon>
+                                </template>
+                            </q-input>
+                        </div>
+                    </div>
+                </q-card-section>
+
+                <q-card-actions align="right">
+                    <q-btn flat label="确认" color="primary" v-close-popup @click="addReservation" />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
+    </div>
+
+
+
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                cnt: 0,
+                baseUrl: 'http://localhost:8000',
+                data: null,
+                comments: [],
+                show: false,
+                start: '',
+                end: '',
+                isLogin: false,
+                comments_copy: [],
+                searchText: '',
+                today: ''
+            }
+        },
+        mounted() {
+            let path = window.location.pathname.split('/').pop();
+            this.today = dayjs().format('YYYY-MM-DD HH:mm:ss')
+            let info = localStorage.getItem('info')
+            let token = localStorage.getItem('token')
+            if (info) {
+                this.isLogin = true
+            }
+            axios.get(this.baseUrl + '/room/get/' + path.toString()).then(res => {
+                let response = res.data
+                this.data = response.data
+                axios.get(this.baseUrl + '/comment/get_by_room/' + path.toString()).then(res => {
+                    let response = res.data
+                    console.log(response)
+                    this.comments = response.data
+                    this.comments.forEach(element => {
+                        let time = dayjs(element.comment_time).format('YYYY-MM-DD HH:mm:ss')
+                        element.comment_time = time
+                    })
+                    this.comments_copy = this.comments
+                })
+            })
+        },
+        methods: {
+            preserve() {
+                let info = localStorage.getItem('info')
+                // if (info == null) {
+                //     this.$message({
+                //         message: '请先登录',
+                //         type: 'warning'
+                //     });
+                //     return
+                // }
+                this.show = true
+            },
+            search() {
+                if (this.searchText == '') {
+                    this.comments = this.comments_copy.slice(0, this.comments_copy.length)
+                    return
+                }
+                console.log(this.searchText, this.comments_copy, this.comments)
+                this.comments = this.comments.filter(item => {
+                    return item.comment.includes(this.searchText) || item.username.includes(this.searchText)
+                })
+
+            },
+            addBookmark() {
+                let that = this
+                let info = JSON.parse(localStorage.getItem('info'))
+                axios.post(this.baseUrl + '/bookmark/add_bookmark', {
+                    room_id: this.data.rid,
+                    uid: info.uid,
+
+                }).then(res => {
+                    let notify = Quasar.Notify
+
+                    let response = res.data
+                    if (response.code == 200) {
+                        notify.create({
+                            type: 'positive',
+                            message: '收藏成功',
+                            position: 'top'
+                        })
+                    } else {
+                        notify.create({
+                            type: 'negative',
+                            message: '收藏失败' + response.msg,
+                            position: 'top'
+                        })
+                    }
+                })
+            },
+            addReservation() {
+                let info = localStorage.getItem('info')
+                let notify = Quasar.Notify
+                console.log(notify)
+                info = JSON.parse(info)
+                console.log(info)
+                let payload = {
+                    start_datetime: this.start,
+                    end_datetime: this.end,
+                    room_id: this.data.rid,
+                    room_name: this.data.room_name,
+                    status: '预约申请',
+                    uid: info.uid,
+                    username: info.username,
+                    tel: info.tel,
+                    // today: dayjs().format('YYYY-MM-DD HH:mm:ss')
+                }
+                axios.post('/reservation/add', payload).then(res => {
+                    let response = res.data
+                    console.log(response)
+                    if (response.code == 200) {
+                        notify.create({
+                            type: 'positive',
+                            message: '预约成功',
+                            position: 'top'
+                        })
+                    } else {
+                        notify.create({
+                            type: 'negative',
+                            message: '预约失败' + response.msg,
+                            position: 'top'
+                        })
+                    }
+                })
+            },
+            gotoBackend() {
+                let token = localStorage.getItem('token')
+                if (token) {
+                    window.location.href = '../../backend/?token=' + token
+                } else {
+                    alert('请先登录')
+                }
+            },
+            gotoLogin() {
+                window.location.href = './login'
+
+            }
+        }
+    })
+    app.mount('#app')
+    app.use(Quasar, {
+        config: {
+            notify: { /* look at QuasarConfOptions from the API card */ }
+        }
+    })
+    Quasar.lang.set(Quasar.lang.zhCN)
+
+
+</script>
+
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>aranya</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0%;
+        }
+
+        .container {
+            width: 1400px;
+            margin: auto;
+        }
+
+        /* 导航栏 */
+        .nav {
+            height: 120px;
+            /* background-color: rgb(189, 189, 189); */
+        }
+
+        .logo {
+            float: left;
+            margin-left: 50px;
+            margin-top: 40px;
+        }
+
+        .list_nav {
+            float: left;
+            height: 120px;
+            line-height: 120px;
+            margin-left: 450px;
+
+        }
+
+        .list1 {
+            list-style-type: none;
+
+        }
+
+        .list_item {
+            font-family: 方正中等线简体;
+            font-size: 20px;
+            display: inline;
+            padding-left: 20px;
+        }
+
+        .login {
+            float: right;
+            margin-right: 50px;
+            ;
+            height: 120px;
+            line-height: 120px;
+        }
+
+        a:link {
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: black;
+        }
+
+        span {
+            font-family: 方正中等线简体;
+            vertical-align: middle;
+            font-size: 16px;
+            font-weight: normal;
+            padding: 10px;
+        }
+
+        /* 轮播图 */
+
+        .wrap {
+            width: auto;
+            height: 500px;
+            position: relative;
+            margin: auto;
+        }
+
+        .list {
+
+            position: relative;
+            padding-left: 0px;
+        }
+
+        .item {
+            width: 100%;
+            height: 100%;
+            list-style: none;
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            transition: all .8s;
+
+        }
+
+        .list img {
+            width: 100%;
+
+        }
+
+        .item.active {
+            z-index: 10;
+            opacity: 1;
+        }
+
+        .btn {
+            width: 60px;
+            height: 100px;
+            z-index: 100;
+            top: 150px;
+            position: absolute;
+            background-color: rgba(145, 145, 145, 0.375);
+            border: 0ch;
+        }
+
+        #leftBtn {
+            left: 0px;
+        }
+
+        #rightBtn {
+            right: 0px;
+        }
+
+        .pointList {
+            list-style: none;
+            padding-left: 0px;
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            z-index: 200;
+        }
+
+        .point {
+            width: 10px;
+            height: 10px;
+            background-color: antiquewhite;
+            border-radius: 100%;
+            float: left;
+            margin-right: 8px;
+            border-style: solid;
+            border-width: 2px;
+            border-color: rgb(215, 215, 215);
+            cursor: pointer;
+        }
+
+        .point.active {
+            background-color: cadetblue;
+        }
+
+        /* 六个板块 */
+        .content {
+            text-align: center;
+            position: relative;
+            top: 100px;
+        }
+
+        #archi {
+            position: relative;
+            right: 30px;
+
+        }
+
+        #art {
+            position: relative;
+            left: 30px;
+        }
+
+        #hotel {
+            position: relative;
+            right: 30px;
+            top: 60px;
+        }
+
+        #food {
+            position: relative;
+            top: 60px;
+            left: 30px;
+        }
+
+        #daily {
+            position: relative;
+            top: 120px;
+            right: 30px;
+        }
+
+        #sport {
+            position: relative;
+            top: 120px;
+            left: 30px;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <!-- 头部 -->
+        <div class="nav">
+            <!-- 阿那亚logo -->
+            <div class="logo">
+                <img src="../img/arnaya_logo.png" width="200">
+            </div>
+            <!-- 导航栏 -->
+            <div class="list_nav">
+                <ul class="list1">
+                    <a href="./home">
+                        <li class="list_item">首页</li>
+                    </a>
+                    <a href="./architecture" target="_blank">
+                        <li class="list_item">艺术</li>
+                    </a>
+                    <li class="list_item">住宿</li>
+                    <li class="list_item">餐厅</li>
+                    <li class="list_item">活动</li>
+                    <li class="list_item">打卡攻略</li>
+                </ul>
+            </div>
+            <div class="login" v-if="!isLogin">
+                <a href="./login" target="_blank"><span>登录</span></a>
+                <span>|</span>
+                <span class=" cursor-pointer" @click="gotoLogin">注册</span>
+            </div>
+            <div class="login">
+                <span style="cursor: pointer;" @click="gotoBackend()">
+                    个人中心
+                </span>
+                <span>|</span>
+                <span @click="logout" style="cursor: pointer;">
+                    退出登录
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- 轮播图 -->
+    <div class="wrap">
+        <ul class="list">
+            <li class="item active"><img src="../img/roll/roll1.jpg"></li>
+            <li class="item"><img src="../img/roll/roll2.jpg"></li>
+            <li class="item"><img src="../img/roll/roll3.jpg"></li>
+            <li class="item"><img src="../img/roll/roll4.jpg"></li>
+
+        </ul>
+        <ul class="pointList">
+            <li class="point active" data-index=0></li>
+            <li class="point" data-index=1></li>
+            <li class="point" data-index=2></li>
+            <li class="point" data-index=3></li>
+
+        </ul>
+        <button class="btn" id="leftBtn">
+        </button>
+        <button class="btn" id="rightBtn"> > </button>
+
+    </div>
+    <script>
+        var items = document.querySelectorAll(".item");//图片
+        var points = document.querySelectorAll(".point")//点
+        var left = document.getElementById("leftBtn");
+        var right = document.getElementById("rightBtn");
+        var all = document.querySelector(".wrap")
+        var index = 0;
+        var time = 0;//定时器跳转参数初始化
+
+
+        //清除active方法
+        var clearActive = function () {
+            for (i = 0; i < items.length; i++) {
+                items[i].className = 'item';
+            }
+            for (j = 0; j < points.length; j++) {
+                points[j].className = 'point';
+            }
+        }
+
+        //改变active方法
+        var goIndex = function () {
+            clearActive();
+            items[index].className = 'item active';
+            points[index].className = 'point active'
+        }
+        //左按钮事件
+        var goLeft = function () {
+            if (index == 0) {
+                index = 3;
+            } else {
+                index--;
+            }
+            goIndex();
+        }
+
+        //右按钮事件
+        var goRight = function () {
+            if (index < 3) {
+                index++;
+            } else {
+                index = 0;
+            }
+            goIndex();
+        }
+
+
+        //绑定点击事件监听
+        left.addEventListener('click', function () {
+            goLeft();
+            time = 0;//计时器跳转清零
+        })
+
+        right.addEventListener('click', function () {
+            goRight();
+            time = 0;//计时器跳转清零
+        })
+
+        for (i = 0; i < points.length; i++) {
+            points[i].addEventListener('click', function () {
+                var pointIndex = this.getAttribute('data-index')
+                index = pointIndex;
+                goIndex();
+                time = 0;//计时器跳转清零
+            })
+        }
+        //计时器
+        var timer;
+        function play() {
+            timer = setInterval(() => {
+                time++;
+                if (time == 20) {
+                    goRight();
+                    time = 0;
+                }
+            }, 100)
+        }
+        play();
+        //移入清除计时器
+        all.onmousemove = function () {
+            clearInterval(timer)
+        }
+        //移出启动计时器
+        all.onmouseleave = function () {
+            play();
+        }
+    </script>
+
+    <!-- 分类 -->
+    <div class="content">
+
+        <a href="./architecture" target="_blank"><img id="archi" width="450" src="../img/content/architecture.jpg"></a>
+        <img id="art" width="450" src="../img/content/ART.jpg"><br>
+        <img id="hotel" width="450" src="../img/content/hotel.jpg">
+        <img id="food" width="450" src="../img/content/food.jpg"><br>
+    </div>
+
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                isLogin: false
+            }
+        },
+        mounted() {
+            let info = localStorage.getItem('info')
+            let token = localStorage.getItem('token')
+            console.log(info)
+            if (info) {
+                this.isLogin = true
+            }
+        },
+        methods: {
+            logout() {
+                localStorage.removeItem('info')
+                localStorage.removeItem('token')
+                this.isLogin = false
+            },
+            gotoBackend() {
+                let token = localStorage.getItem('token')
+                if (token) {
+                    window.location.href = '../backend/?token=' + token
+                } else {
+                    alert('请先登录')
+                }
+            },
+            gotoLogin() {
+                window.location.href = './login'
+
+            }
+        }
+    })
+    app.mount('#app')
+</script>
+
+</html>

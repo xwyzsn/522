@@ -1,0 +1,110 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: rgba(230, 230, 230, 0.4);
+}
+/* 导航栏 */
+.container{
+    width: 100%;
+    margin: auto;
+    background-color: rgb(255, 255, 255);
+
+}
+/* 导航栏 */
+.nav{
+    width: 1400px;
+    height: 120px;
+    
+}
+.logo{
+    float:left;
+    margin-left:50px;
+    margin-top: 40px;
+}
+.list{
+   float: left;
+   height: 120px;
+   line-height: 120px;
+   margin-left: 450px;
+   
+}
+ul{
+    list-style-type: none;
+    
+}
+li{
+    font-family: 方正中等线简体;
+    font-size: 20px;
+    display: inline;
+    padding-left: 20px;
+}
+.login{
+    float: right;
+    margin-right: 50px; ;
+    height: 120px;
+    line-height: 120px;
+}
+
+span{
+    font-family: 方正中等线简体;
+    vertical-align: middle;
+    font-size: 16px;
+    font-weight: normal;
+    padding: 10px;
+}
+/* 图片 */
+#first{
+    width: 100%;
+}
+
+.bg{
+    position: absolute;
+    border-radius: 50px;
+    left: 50%;
+    margin-left: -600px;
+    top: 680px;
+    width: 1200px;
+    height: 150px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.416);
+}
+
+.intro{
+    margin-top: 160px;
+    text-align: center;
+}
+h3{
+    
+    font-family: Verdana;
+    font-size: 20px;
+    font-weight: 300;
+    color: #8e8e8e;
+}
+.intro_detail{
+    margin: auto;
+    margin-top: 40px;
+    width: 1200px;
+    height: 440px;
+    background-color: rgb(255, 255, 255);
+    
+}
+.intropic{
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.introtext{
+    float: left;
+}
+.comment{
+    margin-top: 40px;
+    text-align: center;
+}
+.com{
+    margin: auto;
+    width: 1200px;
+    height: 400px;
+    background-color: #fff;
+}

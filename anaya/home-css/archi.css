@@ -1,0 +1,147 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    width: 1400px;
+    margin: auto;
+}
+/* 导航栏 */
+.nav{
+    height: 120px;
+    /* background-color: rgb(189, 189, 189); */
+}
+.logo{
+    float:left;
+    margin-left:50px;
+    margin-top: 40px;
+}
+.list{
+   float: left;
+   height: 120px;
+   line-height: 120px;
+   margin-left: 450px;
+   
+}
+ul{
+    list-style-type: none;
+    
+}
+li{
+    font-family: 方正中等线简体;
+    font-size: 20px;
+    display: inline;
+    padding-left: 20px;
+}
+.login{
+    float: right;
+    margin-right: 50px; ;
+    height: 120px;
+    line-height: 120px;
+}
+
+span{
+    font-family: 方正中等线简体;
+    vertical-align: middle;
+    font-size: 16px;
+    font-weight: normal;
+    padding: 10px;
+}
+/* 建筑信息 */
+.part_1{
+    position: relative;
+    top: 10px;
+    width: 1000px;
+    height: 318px;
+    margin: auto;
+    border-bottom-style: solid;
+    border-color: rgb(247, 247, 247);
+}
+.part_2{
+    position: relative;
+    top: 60px;
+    width: 1000px;
+    height: 318px;
+    margin: auto;
+    border-bottom-style: solid;
+    border-color: rgb(247, 247, 247);
+}
+.part_3{
+    position: relative;
+    top:120px;
+    width: 1000px;
+    height: 318px;
+    margin: auto;
+    border-bottom-style: solid;
+    border-color: rgb(247, 247, 247);
+}
+.part_4{
+    position: relative;
+    top:180px;
+    width: 1000px;
+    height: 318px;
+    margin: auto;
+    border-bottom-style: solid;
+    border-color: rgb(247, 247, 247);
+}
+#church{
+    float: left;
+    width: 500px;
+}
+
+h2{
+    float: left;
+    margin-left: 560px;
+    margin-top: -300px;
+    font-weight: 50;
+}
+a:link{
+    text-decoration: none;
+}
+a:visited{
+    color: #000;
+}
+#star{
+    float: left;
+    width: 150px;
+    margin-left: 560px;
+    margin-top: -250px;
+}
+.active{
+    float: left;
+    text-align: center;
+    margin-left: 560px;
+    margin-top: -190px;
+    width: 72px;
+    height: 24px;
+    background-color: #f6f6f6;
+}
+.art{
+    float: left;
+    text-align: center;
+    margin-left: 650px;
+    margin-top: -190px;
+    width: 72px;
+    height: 24px;
+    background-color: #f6f6f6;
+}
+.appointment{
+    float: left;
+    text-align: center;
+    margin-left: 740px;
+    margin-top: -190px;
+    width: 72px;
+    height: 24px;
+    background-color: #f6f6f6; 
+}
+#details{
+    float: left;
+    margin-left: 560px;
+    margin-top: -110px;
+    color: #6fd7b2;
+}
+#travelled{
+    float: right;
+    margin-top: -10px;
+    color: #a1a1a1;
+}

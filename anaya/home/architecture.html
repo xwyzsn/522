@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>公共文化建筑</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0%;
+        }
+
+        .container {
+            width: 1400px !important;
+            margin: auto;
+            padding: 0;
+        }
+
+        /* 导航栏 */
+        .nav {
+            height: 120px;
+            /* background-color: rgb(189, 189, 189); */
+        }
+
+        .logo {
+            float: left;
+            margin-left: 50px;
+            margin-top: 40px;
+        }
+
+        .list {
+            float: left;
+            height: 120px;
+            line-height: 120px;
+            margin-left: 450px;
+
+        }
+
+        ul {
+            list-style-type: none;
+
+        }
+
+        li {
+            font-family: 方正中等线简体;
+            font-size: 20px;
+            display: inline;
+            padding-left: 20px;
+        }
+
+        .login {
+            float: right;
+            margin-right: 50px;
+            ;
+            height: 120px;
+            line-height: 120px;
+        }
+
+        span {
+            font-family: 方正中等线简体;
+            vertical-align: middle;
+            font-size: 16px;
+            font-weight: normal;
+            padding: 10px;
+        }
+
+        /* 建筑信息 */
+        .part_1 {
+            position: relative;
+            top: 10px;
+            width: 1000px;
+            height: 318px;
+            margin: auto;
+            border-bottom-style: solid;
+            border-color: rgb(247, 247, 247);
+        }
+
+
+        #church {
+            float: left;
+            width: 500px;
+        }
+
+
+
+        a:link {
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #000;
+        }
+
+        #star {
+            float: left;
+            width: 150px;
+            margin-left: 560px;
+            margin-top: -250px;
+        }
+
+        .active {
+            float: left;
+            text-align: center;
+            margin-left: 560px;
+            margin-top: -190px;
+            width: 72px;
+            height: 24px;
+            background-color: #f6f6f6;
+        }
+
+        .art {
+            float: left;
+            text-align: center;
+            margin-left: 650px;
+            margin-top: -190px;
+            width: 72px;
+            height: 24px;
+            background-color: #f6f6f6;
+        }
+
+        .appointment {
+            float: left;
+            text-align: center;
+            margin-left: 740px;
+            margin-top: -190px;
+            width: 72px;
+            height: 24px;
+            background-color: #f6f6f6;
+        }
+
+        #details {
+            float: left;
+            margin-left: 560px;
+            margin-top: -110px;
+            color: #6fd7b2;
+        }
+
+        #travelled {
+            float: right;
+            margin-top: -10px;
+            color: #a1a1a1;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body style="width: 100%;">
+    <div id="app" style="width: 100%;height: 100%;">
+        <div class=" mr-0 pr-0 ml-0 pl-0 w-full">
+            <div class="nav" class="w-full">
+                <div class="logo">
+                    <img src="../img/arnaya_logo.png" width="200">
+                </div>
+                <div class="list">
+                    <ul>
+                        <a href="./home">
+                            <li class="list_item">首页</li>
+                        </a>
+                        <a href="./architecture">
+                            <li class="list_item">艺术</li>
+                        </a>
+                        <li>住宿</li>
+                        <li>餐厅</li>
+                        <li>活动</li>
+                        <li>打卡攻略</li>
+                    </ul>
+                </div>
+                <div v-if="!isLogin" class="login">
+                    <span class="cursor-pointer" @click="gotoLogin">登录</span>
+                    <span>|</span>
+                    <span class="cursor-pointer" @click="gotoLogin">注册</span>
+                </div>
+                <div v-else class="login">
+                    <span style="cursor: pointer;" @click="gotoBackend()">
+                        个人中心
+                    </span>
+                    <span>|</span>
+                    <span @click="logout" style="cursor: pointer;">
+                        退出登陆
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- 阿那亚礼堂 -->
+        <div class="m-auto grid grid-cols-2 mt-10 shadow-sm cursor-pointer rounded-lg hover:shadow-lg"
+            @click="goDetail(item.rid)" v-for="item in this.archi" :key="item.rid"
+            style="border: 1px solid  rgb(247, 247, 247);width: 60%;">
+            <div class="col-span-1"><img style="height: 300px;width: 500px;" :src="item.room_cover_pic">
+            </div>
+            <div class="col-span-1 pl-16 space-y-10 relative w-full h-full">
+                <div class="text-2xl mt-4">{{item.room_name}}</div>
+                <div class="space-x-4">
+                    <span v-for="tag in item.room_type.split(',')"
+                        class="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                        {{tag}}
+                    </span>
+                </div>
+                <div><span style="color: #6fd7b2;">点击查看详情</span></div>
+
+                <span class="absolute bottom-0 right-0" style="color: #a1a1a1;">需预约</span>
+            </div>
+        </div>
+    </div>
+    <!-- 孤独图书馆 -->
+    <!-- <div class="part_2">
+        <a href="/archi_class/church.html" target="_blank"><img id="church" src="../img/archi_img/library.png"></a>
+        <a href="/archi_class/church.html" target="_blank">
+            <h2>孤独图书馆</h2>
+        </a>
+
+        <div class="active">活动演出</div>
+        <div class="art">阅读</div>
+
+        <p id="details">点击查看详情</p>
+        <p id="travelled">需预约</p>
+    </div> -->
+    <!-- ucaa美术馆 -->
+    <!-- <div class="part_3">
+        <a href="./church" target="_blank"><img id="church" src="../img/archi_img/ucaa.JPG"></a>
+        <a href="./church" target="_blank">
+            <h2>ucaa沙丘美术馆</h2>
+        </a>
+
+        <div class="active">美术馆</div>
+        <div class="art">艺术展览</div>
+
+        <p id="details">点击查看详情</p>
+        <p id="travelled">无需预约</p>
+    </div> -->
+    <!-- 阿那亚艺术中心
+    <div class="part_4">
+        <a href="./church" target="_blank"><img id="church" src="../img/archi_img/art center.png"></a>
+        <a href="./church" target="_blank">
+            <h2>阿那亚艺术中心</h2>
+        </a>
+
+        <div class="active">美术馆</div>
+        <div class="art">当代艺术</div>
+
+        <p id="details">点击查看详情</p>
+        <p id="travelled">无需预约</p>
+    </div> -->
+</body>
+<script>
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                archi: [],
+                baseUrl: 'http://localhost:8000',
+                isLogin: false
+
+            }
+        },
+        mounted() {
+            let info = localStorage.getItem('info');
+            let token = localStorage.getItem('token');
+            if (info) {
+                this.isLogin = true;
+            }
+            axios.get(this.baseUrl + '/room/get_all').then(res => {
+                let response = res.data;
+                this.archi = response.data;
+            })
+        },
+        methods: {
+            goDetail(id) {
+                window.location.href = './template/' + id.toString();
+            },
+            gotoBackend() {
+                let token = localStorage.getItem('token')
+                if (token) {
+                    window.location.href = '../backend/?token=' + token
+                } else {
+                    alert('请先登录')
+                }
+            },
+            gotoLogin() {
+                window.location.href = './login'
+            },
+        }
+    });
+    app.mount('#app')
+</script>
+
+</html>

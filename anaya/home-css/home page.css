@@ -1,0 +1,169 @@
+*{
+    margin: 0;
+    padding: 0%;
+}
+.container{
+    width: 1400px;
+    margin: auto;
+}
+/* 导航栏 */
+.nav{
+    height: 120px;
+    /* background-color: rgb(189, 189, 189); */
+}
+.logo{
+    float:left;
+    margin-left:50px;
+    margin-top: 40px;
+}
+.list_nav{
+   float: left;
+   height: 120px;
+   line-height: 120px;
+   margin-left: 450px;
+   
+}
+.list1{
+    list-style-type: none;
+    
+}
+.list_item{
+    font-family: 方正中等线简体;
+    font-size: 20px;
+    display: inline;
+    padding-left: 20px;
+}
+.login{
+    float: right;
+    margin-right: 50px; ;
+    height: 120px;
+    line-height: 120px;
+}
+a:link{
+    text-decoration: none;
+}
+a:visited{
+    color: black;
+}
+
+span{
+    font-family: 方正中等线简体;
+    vertical-align: middle;
+    font-size: 16px;
+    font-weight: normal;
+    padding: 10px;
+}
+/* 轮播图 */
+
+.wrap {
+    width: auto;
+    height: 500px;
+    position: relative;
+    margin: auto;
+}
+
+.list {
+    
+    position: relative;
+    padding-left: 0px;
+}
+
+.item {
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    transition: all .8s;
+    
+}
+.list img{
+    width: 100%;
+   
+}
+
+.item.active {
+    z-index: 10;
+    opacity: 1;
+}
+
+.btn {
+    width: 60px;
+    height: 100px;
+    z-index: 100;
+    top: 150px;
+    position: absolute;
+    background-color: rgba(145, 145, 145, 0.375);
+    border: 0ch;
+}
+
+#leftBtn {
+    left: 0px;
+}
+
+#rightBtn {
+    right: 0px;
+}
+
+.pointList {
+    list-style: none;
+    padding-left: 0px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    z-index: 200;
+}
+
+.point {
+    width: 10px;
+    height: 10px;
+    background-color: antiquewhite;
+    border-radius: 100%;
+    float: left;
+    margin-right: 8px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(215, 215, 215);
+    cursor: pointer;  
+}
+
+.point.active{
+    background-color: cadetblue;
+}
+
+/* 六个板块 */
+.content{
+    text-align: center;
+    position: relative;
+    top: 100px;
+}
+#archi{
+    position: relative;
+    right: 30px; 
+    
+}
+#art{
+    position: relative;
+    left: 30px;   
+}
+#hotel{
+    position: relative;
+    right: 30px;
+    top: 60px;
+}
+#food{
+    position: relative;
+    top: 60px;
+    left: 30px;
+}
+#daily{
+    position: relative;
+    top: 120px;
+    right: 30px;
+}
+#sport{
+    position: relative;
+    top: 120px;
+    left: 30px;
+}
